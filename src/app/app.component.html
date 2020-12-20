@@ -1,0 +1,125 @@
+<mat-toolbar color="primary">
+  Ascension
+</mat-toolbar>
+<mat-tab-group>
+  <mat-tab label="Builder">
+    <div style="display: flex;">
+      <div style="flex: 1">
+        <div>
+          Character
+        </div>
+        <div></div>
+      </div>
+      <div style="flex: 1">
+        <div>
+          Available
+        </div>
+        <div>
+          <div style="display: flex; flex-wrap: wrap;">
+            <mat-card
+              style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+              *ngFor="let cls of builder.AvailableClasses"
+            >
+              <mat-card-header
+                [ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.8)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }"
+              >
+                {{cls.Name}}
+              </mat-card-header>
+              <mat-card-content style="padding: 12px">
+                <div *ngIf="cls.Nodes.length == 1">
+                  <div *ngFor="let node of cls.Nodes">
+                    <mat-checkbox
+                      (change)="checked($event, node, cls)"
+                      [checked]="node.Selected"
+                      >{{cls.Name}}
+                    </mat-checkbox>
+                  </div>
+                </div>
+                <div *ngIf="cls.Nodes.length > 1">
+                  <div *ngFor="let node of cls.Nodes; $index as index">
+                    <div>
+                      <div *ngIf="node.SubNodes.length != 0">
+                        {{node.ID}}
+                      </div>
+                      <div *ngIf="node.SubNodes.length == 0">
+                        <mat-checkbox [checked]="node.Selected"
+                          >{{node.ID}}</mat-checkbox
+                        >
+                      </div>
+                    </div>
+                    <div *ngFor="let subnode of node.SubNodes">
+                      <div style="display: flex;">
+                        <div>
+                          <mat-checkbox
+                            [checked]="subnode.Selected"
+                            (change)="checked($event, subnode, cls)"
+                            [disabled]=""
+                          >
+                          </mat-checkbox>
+                        </div>
+                        <div style="flex:1">
+                          {{subnode.Raw}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1">
+        <div>
+          Completed
+        </div>
+        <div>
+          <div style="display: flex; flex-wrap: wrap">
+            <mat-card
+              style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+              *ngFor="let cls of builder.CompletedClasses"
+            >
+              <mat-card-header
+                [ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.8)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }"
+              >
+                {{cls.Name}}
+              </mat-card-header>
+              <mat-card-content style="padding: 12px">
+                <div *ngIf="cls.Nodes.length == 1">
+                  <div *ngFor="let node of cls.Nodes">
+                    <mat-checkbox
+                      (change)="checked($event, node, cls)"
+                      [checked]="node.Selected"
+                      >{{cls.Name}}
+                    </mat-checkbox>
+                  </div>
+                </div>
+                <div *ngIf="cls.Nodes.length > 1">
+                  <div *ngFor="let node of cls.Nodes">
+                    <div>
+                      <div *ngIf="node.SubNodes.length != 0">
+                        {{node.ID}}
+                      </div>
+                      <div *ngIf="node.SubNodes.length == 0">
+                        <mat-checkbox [checked]="node.Selected"
+                          >{{node.ID}}</mat-checkbox
+                        >
+                      </div>
+                    </div>
+                    <div *ngFor="let subnode of node.SubNodes">
+                      <mat-checkbox
+                        [checked]="subnode.Selected"
+                        (change)="checked($event, subnode, cls)"
+                        >{{node.ID}}</mat-checkbox
+                      >
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
