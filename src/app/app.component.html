@@ -1,98 +1,104 @@
-<mat-toolbar color="primary">
-	Ascension
-</mat-toolbar>
-<mat-tab-group>
-	<mat-tab label="Builder">
-		<div style="display: flex;">
-			<div style="min-width: 300px">
-				<div class="header">
-					Character
-				</div>
-				<div style="padding: 16px">
+<div class="mat-typography app-frame mat-app-background" style="flex: 1;overflow: scroll;">
+	<mat-toolbar color="primary">
+		Ascension
+	</mat-toolbar>
+	<mat-tab-group >
+		<mat-tab label="Builder">
+			<div cols="4" rows="1">
+				<div colspan="1" rowspan="1">
 					<div>
-						<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
-							Ascension
-						</div>
-						<div *ngFor="let item of builder.Character.CurrentAscension | keyvalue">
-							<div *ngIf="item.value != 0" style="padding: 4px">
-								{{item.value}} {{item.key}}
-							</div>
-						</div>
-					</div>
-					<div>
-						<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
-							Statistics
-						</div>
-						<div *ngFor="let item of builder.Character.Statistics | keyvalue">
-							<div *ngIf="item.value != 0" style="padding: 4px">
-								{{item.value}} {{item.key}}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div style="flex: 1">
-				<div class="header">
-					Available
-				</div>
-				<div>
-					<div style="display: flex; flex-wrap: wrap;">
-						<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
-							*ngFor="let cls of builder.AvailableClasses">
-							<mat-card-header
-								[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
-								{{cls.Name}}
-							</mat-card-header>
-							<mat-card-content style="padding: 12px">
-								<div style="margin-bottom: 4px">
-									<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
-										Completion Grants
-									</div>
-									<div *ngFor="let item of cls.Grants | keyvalue">
+						<div style="padding: 16px; display: flex">
+							<mat-card style="margin: 12px">
+								<mat-card-title>
+									Ascension
+								</mat-card-title>
+								<mat-card-content>
+									<div *ngFor="let item of builder.Character.CurrentAscension | keyvalue">
 										<div *ngIf="item.value != 0" style="padding: 4px">
 											{{item.value}} {{item.key}}
 										</div>
 									</div>
-								</div>
-								<div *ngIf="cls.Nodes.length == 1">
-									<div *ngFor="let node of cls.Nodes">
-										<mat-checkbox (change)="checked($event, node, cls)" [checked]="node.Selected">
-											{{cls.Name}}
-										</mat-checkbox>
+								</mat-card-content>
+							</mat-card>
+							<mat-card style="margin: 12px">
+								<mat-card-title>
+									Statistics
+								</mat-card-title>
+                <mat-card-content>
+								<div *ngFor="let item of builder.Character.Statistics | keyvalue">
+									<div *ngIf="item.value != 0" style="padding: 4px">
+										{{item.value}} {{item.key}}
 									</div>
 								</div>
-								<div *ngIf="cls.Nodes.length > 1">
-									<div *ngFor="let node of cls.Nodes; $index as index">
-										<div>
-											<div style="padding: 4px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)"
-												*ngIf="node.SubNodes.length != 0">
-												Node {{node.ID}}
-											</div>
-											<div *ngIf="node.SubNodes.length == 0">
-												<mat-checkbox [checked]="node.Selected">{{node.ID}}</mat-checkbox>
-											</div>
-										</div>
-										<div *ngFor="let subnode of node.SubNodes">
-											<div style="display: flex; padding: 4px">
-												<div>
-													<mat-checkbox [checked]="subnode.Selected"
-														(change)="checked($event, subnode, cls)" [disabled]="">
-													</mat-checkbox>
-												</div>
-												<div
-													style="flex:1; text-align: right; margin-left: 8px; color: rgba(0,0,0,.6)">
-													{{subnode.Raw}}
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</mat-card-content>
-						</mat-card>
+                </mat-card-content>
+							</mat-card>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!--
+				<div colspan="3" rowspan="1">
+					<div>
+						<div>
+							<div style="display: flex; flex-wrap: wrap;">
+								<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+									*ngFor="let cls of builder.AvailableClasses">
+									<mat-card-header
+										[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+										{{cls.Name}}
+									</mat-card-header>
+									<mat-card-content style="padding: 12px">
+										<div style="margin-bottom: 4px">
+											<div
+												style="padding: 2px;font-size: 1.1em;font-weight:600;">
+												Completion Grants
+											</div>
+											<div *ngFor="let item of cls.Grants | keyvalue">
+												<div *ngIf="item.value != 0" style="padding: 4px">
+													{{item.value}} {{item.key}}
+												</div>
+											</div>
+										</div>
+										<div *ngIf="cls.Nodes.length == 1">
+											<div *ngFor="let node of cls.Nodes">
+												<mat-checkbox (change)="checked($event, node, cls)"
+													[checked]="node.Selected">
+													{{cls.Name}}
+												</mat-checkbox>
+											</div>
+										</div>
+										<div *ngIf="cls.Nodes.length > 1">
+											<div *ngFor="let node of cls.Nodes; $index as index">
+												<div>
+													<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
+														*ngIf="node.SubNodes.length != 0">
+														Node {{node.ID}}
+													</div>
+													<div *ngIf="node.SubNodes.length == 0">
+														<mat-checkbox [checked]="node.Selected">{{node.ID}}
+														</mat-checkbox>
+													</div>
+												</div>
+												<div *ngFor="let subnode of node.SubNodes">
+													<div style="display: flex; padding: 4px">
+														<div>
+															<mat-checkbox [checked]="subnode.Selected"
+																(change)="checked($event, subnode, cls)" [disabled]="">
+															</mat-checkbox>
+														</div>
+														<div
+															style="flex:1; text-align: right; margin-left: 8px;">
+															{{subnode.Raw}}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-card-content>
+								</mat-card>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--
 			<div style="flex: 1">
 				<div class="header">
 					Completed
@@ -134,16 +140,18 @@
 					</div>
 				</div>
 			</div>-->
-		</div>
-	</mat-tab>
-	<mat-tab label="Discovery">
-		<div>
-			<div>
-
 			</div>
-			<div>
 
+		</mat-tab>
+		<mat-tab label="Discovery">
+			<div>
+				<div>
+
+				</div>
+				<div>
+
+				</div>
 			</div>
-		</div>
-	</mat-tab>
-</mat-tab-group>
+		</mat-tab>
+	</mat-tab-group>
+</div>
