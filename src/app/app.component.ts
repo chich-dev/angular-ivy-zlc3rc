@@ -20,7 +20,5 @@ export class AppComponent {
 
   checked(e, node, cls) {
     node.Selected = e.checked;
-    console.log(node);
-    console.log(cls);
   }
 }

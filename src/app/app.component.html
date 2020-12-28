@@ -4,11 +4,32 @@
 <mat-tab-group>
 	<mat-tab label="Builder">
 		<div style="display: flex;">
-			<div style="flex: 1">
+			<div style="min-width: 300px">
 				<div class="header">
 					Character
 				</div>
-				<div></div>
+				<div style="padding: 16px">
+					<div>
+						<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
+							Ascension
+						</div>
+						<div *ngFor="let item of builder.Character.CurrentAscension | keyvalue">
+							<div *ngIf="item.value != 0" style="padding: 4px">
+								{{item.value}} {{item.key}}
+							</div>
+						</div>
+					</div>
+					<div>
+						<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
+							Statistics
+						</div>
+						<div *ngFor="let item of builder.Character.Statistics | keyvalue">
+							<div *ngIf="item.value != 0" style="padding: 4px">
+								{{item.value}} {{item.key}}
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div style="flex: 1">
 				<div class="header">
@@ -19,10 +40,20 @@
 						<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
 							*ngFor="let cls of builder.AvailableClasses">
 							<mat-card-header
-								[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.8)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+								[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
 								{{cls.Name}}
 							</mat-card-header>
 							<mat-card-content style="padding: 12px">
+								<div style="margin-bottom: 4px">
+									<div style="padding: 2px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)">
+										Completion Grants
+									</div>
+									<div *ngFor="let item of cls.Grants | keyvalue">
+										<div *ngIf="item.value != 0" style="padding: 4px">
+											{{item.value}} {{item.key}}
+										</div>
+									</div>
+								</div>
 								<div *ngIf="cls.Nodes.length == 1">
 									<div *ngFor="let node of cls.Nodes">
 										<mat-checkbox (change)="checked($event, node, cls)" [checked]="node.Selected">
@@ -33,21 +64,23 @@
 								<div *ngIf="cls.Nodes.length > 1">
 									<div *ngFor="let node of cls.Nodes; $index as index">
 										<div>
-											<div *ngIf="node.SubNodes.length != 0">
-												{{node.ID}}
+											<div style="padding: 4px;font-size: 1.1em;font-weight:600;color: rgba(0,0,0,.67)"
+												*ngIf="node.SubNodes.length != 0">
+												Node {{node.ID}}
 											</div>
 											<div *ngIf="node.SubNodes.length == 0">
 												<mat-checkbox [checked]="node.Selected">{{node.ID}}</mat-checkbox>
 											</div>
 										</div>
 										<div *ngFor="let subnode of node.SubNodes">
-											<div style="display: flex;">
+											<div style="display: flex; padding: 4px">
 												<div>
 													<mat-checkbox [checked]="subnode.Selected"
 														(change)="checked($event, subnode, cls)" [disabled]="">
 													</mat-checkbox>
 												</div>
-												<div style="flex:1">
+												<div
+													style="flex:1; text-align: right; margin-left: 8px; color: rgba(0,0,0,.6)">
 													{{subnode.Raw}}
 												</div>
 											</div>
@@ -59,6 +92,7 @@
 					</div>
 				</div>
 			</div>
+			<!--
 			<div style="flex: 1">
 				<div class="header">
 					Completed
@@ -99,6 +133,16 @@
 						</mat-card>
 					</div>
 				</div>
+			</div>-->
+		</div>
+	</mat-tab>
+	<mat-tab label="Discovery">
+		<div>
+			<div>
+
+			</div>
+			<div>
+
 			</div>
 		</div>
 	</mat-tab>

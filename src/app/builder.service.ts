@@ -8,8 +8,27 @@ export class BuilderService {
   public AscensionClasses;
   public get Character() {
     return {
-      CurrentAscension: this.CurrentAscension
+      CurrentAscension: this.CurrentAscension,
+      Statistics: this.Statistics
     };
+  }
+
+  public get Statistics() {
+    let result = {};
+    if (this.AscensionClasses) {
+      this.AscensionClasses.forEach(item => {
+        item.SelectedNodes.forEach(node => {
+          for (var name in node.Stats) {
+            if (result[name]) {
+              result[name] += parseFloat(node.Stats[name]);
+            } else {
+              result[name] = parseFloat(node.Stats[name]);
+            }
+          }
+        });
+      });
+    }
+    return result;
   }
 
   public get CurrentAscension() {
@@ -84,7 +103,6 @@ export class BuilderService {
       this.AscensionClasses = (data as Array<any>).map(cls => {
         return new AscensionClass(cls);
       });
-      console.log(this.AscensionClasses);
     });
   }
 }
@@ -102,6 +120,14 @@ export class AscensionNode {
       }, false)
     );
   }
+  public get SelectedNode() {
+    return this._selected
+      ? this
+      : this.SubNodes.filter(item => {
+          return item.Selected;
+        })[0];
+  }
+
   SubNodes: Array<AscensionNode>;
   ID;
   Raw;
@@ -128,6 +154,14 @@ export class AscensionClass {
       return item.Selected && acc;
     }, true);
   }
+
+  public get SelectedNodes() {
+    return this.Nodes.reduce((acc, item) => {
+      item.Selected ? acc.push(item.SelectedNode) : null;
+      return acc;
+    }, []);
+  }
+
   Nodes: Array<AscensionNode>;
   Name;
   Group;
