@@ -23,6 +23,10 @@ export class BuilderService {
       ? this.AscensionClasses.reduce((acc, item) => {
           let result = true;
 
+          if (this.Filters.Raw) {
+            result = result && item.hasRaw(this.Filters.Raw);
+          }
+
           this.Filters.Statistics.map(stat => {
             result = result && item.hasStatistic(stat);
           });
@@ -72,10 +76,10 @@ export class BuilderService {
 
               node.SubNodes.map(snode => {
                 snode.Activation.forEach(activator => {
-                if (!acc[activator]) {
-                  acc[activator] = false;
-                }
-              });
+                  if (!acc[activator]) {
+                    acc[activator] = false;
+                  }
+                });
               });
             }
           });
@@ -234,6 +238,15 @@ export class AscensionNode {
       }, false)
     );
   }
+
+  public hasRaw(value) {
+    return (
+      this.Raw.indexOf(value) ||
+      this.SubNodes.reduce((acc, item) => {
+        return acc || item.Raw.indexOf(value) > -1;
+      }, false)
+    );
+  }
 }
 
 export class AscensionClass {
@@ -269,6 +282,12 @@ export class AscensionClass {
   public hasStatistic(value) {
     return this.Nodes.reduce((acc, item) => {
       return acc || item.hasStatistic(value);
+    }, false);
+  }
+
+  public hasRaw(value) {
+    return this.Nodes.reduce((acc, item) => {
+      return acc || item.hasRaw(value);
     }, false);
   }
 }
