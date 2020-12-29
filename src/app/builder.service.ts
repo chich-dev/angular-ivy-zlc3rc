@@ -247,6 +247,13 @@ export class AscensionNode {
       }, false)
     );
   }
+
+  public reset() {
+    this._selected = false;
+    this.SubNodes.forEach(node => {
+      node.reset();
+    });
+  }
 }
 
 export class AscensionClass {
@@ -289,5 +296,11 @@ export class AscensionClass {
     return this.Nodes.reduce((acc, item) => {
       return acc || item.hasRaw(value);
     }, false);
+  }
+
+  public reset() {
+    this.Nodes.forEach(node => {
+      node.reset();
+    });
   }
 }
