@@ -107,6 +107,106 @@ export class BuilderService {
     return result;
   }
 
+  public get GrantsFocus() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return (
+          cls.Grants["Focus"] > 0 ||
+          cls.Nodes.filter(node => {
+            return (
+              node.Stats["Focus"] ||
+              node.SubNodes.filter(subnode => {
+                return subnode.Stats["Focus"];
+              })[0]
+            );
+          })[0]
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
+  public get GrantsLife() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return (
+          cls.Grants["Life"] > 0 ||
+          cls.Nodes.filter(node => {
+            return (
+              node.Stats["Life"] ||
+              node.SubNodes.filter(subnode => {
+                return subnode.Stats["Life"];
+              })[0]
+            );
+          })[0]
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
+  public get GrantsForce() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return (
+          cls.Grants["Force"] > 0 ||
+          cls.Nodes.filter(node => {
+            return (
+              node.Stats["Force"] ||
+              node.SubNodes.filter(subnode => {
+                return subnode.Stats["Force"];
+              })[0]
+            );
+          })[0]
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
+  public get GrantsEntropy() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return (
+          cls.Grants["Entropy"] > 0 ||
+          cls.Nodes.filter(node => {
+            return (
+              node.Stats["Entropy"] ||
+              node.SubNodes.filter(subnode => {
+                return subnode.Stats["Entropy"];
+              })[0]
+            );
+          })[0]
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
+  public get GrantsInertia() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return (
+          cls.Grants["Inertia"] > 0 ||
+          cls.Nodes.filter(node => {
+            return (
+              node.Stats["Inertia"] ||
+              node.SubNodes.filter(subnode => {
+                return subnode.Stats["Inertia"];
+              })[0]
+            );
+          })[0]
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
   public get PointsUsed() {
     if (this.AscensionClasses) {
       return this.AscensionClasses.reduce((acc, item) => {
@@ -207,7 +307,14 @@ export class BuilderService {
       this.AscensionClasses = (data as Array<any>).map(cls => {
         return new AscensionClass(cls);
       });
+      console.log(this.GrantsEntropy);
     });
+  }
+
+  getPathsToClass(cls) {
+    let result = [];
+
+    return result;
   }
 
   resetClass(item) {
