@@ -109,31 +109,36 @@ export class BuilderService {
   public get CurrentAscension() {
     if (this.AscensionClasses) {
       return {
-        Force: this.AscensionClasses.filter(cls => {
-          return cls.Completed;
-        }).reduce((acc, item) => {
-          return (acc += item.Grants.Force);
-        }, 0),
-        Entropy: this.AscensionClasses.filter(cls => {
-          return cls.Completed;
-        }).reduce((acc, item) => {
-          return (acc += item.Grants.Entropy);
-        }, 0),
-        Life: this.AscensionClasses.filter(cls => {
-          return cls.Completed;
-        }).reduce((acc, item) => {
-          return (acc += item.Grants.Life);
-        }, 0),
-        Form: this.AscensionClasses.filter(cls => {
-          return cls.Completed;
-        }).reduce((acc, item) => {
-          return (acc += item.Grants.Form);
-        }, 0),
-        Inertia: this.AscensionClasses.filter(cls => {
-          return cls.Completed;
-        }).reduce((acc, item) => {
-          return (acc += item.Grants.Inertia);
-        }, 0)
+        Force:
+          this.AscensionClasses.filter(cls => {
+            return cls.Completed;
+          }).reduce((acc, item) => {
+            return (acc += item.Grants.Force);
+          }, 0) + (this.Statistics["Force"] ? this.Statistics["Force"] : 0),
+        Entropy:
+          this.AscensionClasses.filter(cls => {
+            return cls.Completed;
+          }).reduce((acc, item) => {
+            return (acc += item.Grants.Entropy);
+          }, 0) + (this.Statistics["Entropy"] ? this.Statistics["Entropy"] : 0),
+        Life:
+          this.AscensionClasses.filter(cls => {
+            return cls.Completed;
+          }).reduce((acc, item) => {
+            return (acc += item.Grants.Life);
+          }, 0) + (this.Statistics["Life"] ? this.Statistics["Life"] : 0),
+        Form:
+          this.AscensionClasses.filter(cls => {
+            return cls.Completed;
+          }).reduce((acc, item) => {
+            return (acc += item.Grants.Form);
+          }, 0) + (this.Statistics["Form"] ? this.Statistics["Form"] : 0),
+        Inertia:
+          this.AscensionClasses.filter(cls => {
+            return cls.Completed;
+          }).reduce((acc, item) => {
+            return (acc += item.Grants.Inertia);
+          }, 0) + (this.Statistics["Inertia"] ? this.Statistics["Inertia"] : 0)
       };
     } else {
       return {
@@ -180,6 +185,12 @@ export class BuilderService {
       });
     });
   }
+
+  resetClass(item) {
+    item.reset();
+  }
+
+  checkClasses() {}
 
   queryRaw(value) {}
 
@@ -268,6 +279,10 @@ export class AscensionClass {
       item.Selected ? acc.push(item.SelectedNode) : null;
       return acc;
     }, []);
+  }
+
+  public get HasSelections() {
+    return this.SelectedNodes[0];
   }
 
   Nodes: Array<AscensionNode>;
