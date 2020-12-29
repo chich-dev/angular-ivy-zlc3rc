@@ -14,7 +14,8 @@ export class BuilderService {
   public get Character() {
     return {
       CurrentAscension: this.CurrentAscension,
-      Statistics: this.Statistics
+      Statistics: this.Statistics,
+      Modifiers: this.Modifiers
     };
   }
 
@@ -100,6 +101,29 @@ export class BuilderService {
               result[name] = parseFloat(node.Stats[name]);
             }
           }
+        });
+      });
+    }
+    return result;
+  }
+
+  public get PointsUsed() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.reduce((acc, item) => {
+        acc += item.SelectedNodesFromPoints.length;
+        return acc;
+      }, 0);
+    } else {
+      return 0;
+    }
+  }
+
+  public get Modifiers() {
+    let result = [];
+    if (this.AscensionClasses) {
+      this.AscensionClasses.forEach(item => {
+        item.SelectedNodes.forEach(node => {
+          result = result.concat(node.Modifiers);
         });
       });
     }
@@ -272,9 +296,9 @@ export class AscensionNode {
 
   public hasRaw(value) {
     return (
-      this.Raw.indexOf(value) > -1 ||
+      this.Raw.toUpperCase().indexOf(value.toUpperCase()) > -1 ||
       this.SubNodes.reduce((acc, item) => {
-        return acc || item.Raw.indexOf(value) > -1;
+        return acc || item.Raw.toUpperCase().indexOf(value.toUpperCase()) > -1;
       }, false)
     );
   }
@@ -299,6 +323,15 @@ export class AscensionClass {
       if (item.Selected) {
         acc.push(item.SelectedNode);
         acc.push(item);
+      }
+      return acc;
+    }, []);
+  }
+
+  public get SelectedNodesFromPoints() {
+    return this.Nodes.reduce((acc, item) => {
+      if (item.Selected) {
+        acc.push(item.SelectedNode);
       }
       return acc;
     }, []);

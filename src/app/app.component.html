@@ -19,6 +19,9 @@
 										</div>
 									</div>
 								</mat-card-content>
+                <mat-card-actions align="end">
+                  Points Used: {{builder.PointsUsed}}
+                </mat-card-actions>
 							</mat-card>
 							<mat-card style="margin: 12px">
 								<mat-card-title>
@@ -28,6 +31,18 @@
 									<div *ngFor="let item of builder.Character.Statistics | keyvalue">
 										<div *ngIf="item.value != 0" style="padding: 4px">
 											{{item.value}} {{item.key}}
+										</div>
+									</div>
+								</mat-card-content>
+							</mat-card>
+              <mat-card style="margin: 12px">
+								<mat-card-title>
+									Modifiers
+								</mat-card-title>
+								<mat-card-content>
+									<div *ngFor="let item of builder.Character.Modifiers">
+										<div style="padding: 4px">
+											{{item}}
 										</div>
 									</div>
 								</mat-card-content>
@@ -235,6 +250,14 @@
 												Completion Grants
 											</div>
 											<div *ngFor="let item of cls.Grants | keyvalue">
+												<div *ngIf="item.value != 0" style="padding: 4px">
+													{{item.value}} {{item.key}}
+												</div>
+											</div>
+											<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+												Requires
+											</div>
+											<div *ngFor="let item of cls.Requires | keyvalue">
 												<div *ngIf="item.value != 0" style="padding: 4px">
 													{{item.value}} {{item.key}}
 												</div>
