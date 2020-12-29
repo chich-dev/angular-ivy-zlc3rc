@@ -241,7 +241,7 @@ export class AscensionNode {
 
   public hasRaw(value) {
     return (
-      this.Raw.indexOf(value) ||
+      this.Raw.indexOf(value) > -1 ||
       this.SubNodes.reduce((acc, item) => {
         return acc || item.Raw.indexOf(value) > -1;
       }, false)
