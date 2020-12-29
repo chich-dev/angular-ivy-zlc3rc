@@ -81,9 +81,14 @@
 										<div *ngIf="cls.Nodes.length > 1">
 											<div *ngFor="let node of cls.Nodes; $index as index">
 												<div>
-													<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
-														*ngIf="node.SubNodes.length != 0">
-														Node {{node.ID}}
+													<div style="display: flex">
+														<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
+															*ngIf="node.SubNodes.length != 0">
+															Node {{node.ID}}
+														</div>
+														<div style="flex:1; text-align: right; margin-left: 8px;">
+															{{node.Raw}}
+														</div>
 													</div>
 													<div *ngIf="node.SubNodes.length == 0">
 														<mat-checkbox [checked]="node.Selected">{{node.ID}}

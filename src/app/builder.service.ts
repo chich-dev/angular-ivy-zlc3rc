@@ -276,7 +276,10 @@ export class AscensionClass {
 
   public get SelectedNodes() {
     return this.Nodes.reduce((acc, item) => {
-      item.Selected ? acc.push(item.SelectedNode) : null;
+      if (item.Selected) {
+        acc.push(item.SelectedNode);
+        acc.push(item);
+      }
       return acc;
     }, []);
   }
