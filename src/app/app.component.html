@@ -19,9 +19,9 @@
 										</div>
 									</div>
 								</mat-card-content>
-                <mat-card-actions align="end">
-                  Points Used: {{builder.PointsUsed}}
-                </mat-card-actions>
+								<mat-card-actions align="end">
+									Points Used: {{builder.PointsUsed}}
+								</mat-card-actions>
 							</mat-card>
 							<mat-card style="margin: 12px">
 								<mat-card-title>
@@ -35,7 +35,7 @@
 									</div>
 								</mat-card-content>
 							</mat-card>
-              <mat-card style="margin: 12px">
+							<mat-card style="margin: 12px">
 								<mat-card-title>
 									Modifiers
 								</mat-card-title>
@@ -297,8 +297,135 @@
 				</div>
 			</div>
 		</mat-tab>
-    <mat-tab label="Paths">
-      
-    </mat-tab>
+		<mat-tab label="Paths">
+			<div style="display: flex; flex-wrap: wrap;" *ngIf="!builder.Paths">
+				<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+					*ngFor="let cls of builder.LastTierClasses">
+					<mat-card-header
+						[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+						<div style="display: flex;flex:1">
+							<div style="flex:1">
+								{{cls.Name}}
+							</div>
+							<div style=" margin-right: 12px">
+								<mat-icon style="cursor:pointer" (click)="builder.SelectedClassTarget=cls">open_in_full
+								</mat-icon>
+							</div>
+						</div>
+					</mat-card-header>
+					<mat-card-content style="padding: 12px">
+						<div style="margin-bottom: 4px">
+							<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+								Completion Grants
+							</div>
+							<div *ngFor="let item of cls.Grants | keyvalue">
+								<div *ngIf="item.value != 0" style="padding: 4px">
+									{{item.value}} {{item.key}}
+								</div>
+							</div>
+							<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+								Requires
+							</div>
+							<div *ngFor="let item of cls.Requires | keyvalue">
+								<div *ngIf="item.value != 0" style="padding: 4px">
+									{{item.value}} {{item.key}}
+								</div>
+							</div>
+						</div>
+						<div *ngIf="cls.Nodes.length == 1">
+							<div *ngFor="let node of cls.Nodes">
+							</div>
+						</div>
+						<div *ngIf="cls.Nodes.length > 1">
+							<div *ngFor="let node of cls.Nodes; $index as index">
+								<div>
+									<div style="display: flex">
+										<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
+											*ngIf="node.SubNodes.length != 0">
+											Node {{node.ID}}
+										</div>
+										<div style="flex:1; text-align: right; margin-left: 8px;">
+											{{node.Raw}}
+										</div>
+									</div>
+								</div>
+								<div *ngFor="let subnode of node.SubNodes">
+									<div style="display: flex; padding: 4px">
+										<div style="flex:1; text-align: right; margin-left: 8px;">
+											{{subnode.Raw}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</div>
+			<div style="display: flex; flex-wrap: wrap;" *ngIf="builder.Paths">
+				<div *ngFor="let path of builder.Paths">
+					<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+						*ngFor="let cls of path">
+						<mat-card-header
+							[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+							<div style="display: flex;flex:1">
+								<div style="flex:1">
+									{{cls.Name}}
+								</div>
+								<div style=" margin-right: 12px">
+									<mat-icon style="cursor:pointer" (click)="builder.SelectedClassTarget=cls">
+										open_in_full</mat-icon>
+								</div>
+							</div>
+						</mat-card-header>
+						<mat-card-content style="padding: 12px">
+							<div style="margin-bottom: 4px">
+								<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+									Completion Grants
+								</div>
+								<div *ngFor="let item of cls.Grants | keyvalue">
+									<div *ngIf="item.value != 0" style="padding: 4px">
+										{{item.value}} {{item.key}}
+									</div>
+								</div>
+								<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+									Requires
+								</div>
+								<div *ngFor="let item of cls.Requires | keyvalue">
+									<div *ngIf="item.value != 0" style="padding: 4px">
+										{{item.value}} {{item.key}}
+									</div>
+								</div>
+							</div>
+							<div *ngIf="cls.Nodes.length == 1">
+								<div *ngFor="let node of cls.Nodes">
+								</div>
+							</div>
+							<div *ngIf="cls.Nodes.length > 1">
+								<div *ngFor="let node of cls.Nodes; $index as index">
+									<div>
+										<div style="display: flex">
+											<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
+												*ngIf="node.SubNodes.length != 0">
+												Node {{node.ID}}
+											</div>
+											<div style="flex:1; text-align: right; margin-left: 8px;">
+												{{node.Raw}}
+											</div>
+										</div>
+									</div>
+									<div *ngFor="let subnode of node.SubNodes">
+										<div style="display: flex; padding: 4px">
+											<div style="flex:1; text-align: right; margin-left: 8px;">
+												{{subnode.Raw}}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+		</mat-tab>
 	</mat-tab-group>
 </div>

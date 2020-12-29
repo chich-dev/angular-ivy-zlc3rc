@@ -302,12 +302,53 @@ export class BuilderService {
     }
   }
 
+  public get RootClasses() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.slice(0, 5);
+    } else {
+      return [];
+    }
+  }
+
+  public get LastTierClasses() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(item => {
+        return (
+          Object.keys(item.Grants).reduce((acc, key) => {
+            acc += item.Grants[key];
+            return acc;
+          }, 0) == 0
+        );
+      });
+    } else {
+      return [];
+    }
+  }
+
+  private _SelectedClassTarget;
+  public set SelectedClassTarget(value) {
+    this._SelectedClassTarget = value;
+    this._SelectedClassTarget
+      ? (this.Paths = this.getPathsToClass(value))
+      : (this.Paths = null);
+  }
+  public get SelectedClassTarget() {
+    return this._SelectedClassTarget;
+  }
+
+  private _Paths;
+  public set Paths(value) {
+    this._Paths = value;
+  }
+  public get Paths() {
+    return this._Paths;
+  }
+
   constructor(private http: HttpClient) {
     this.http.get("/assets/ascension.json").subscribe(data => {
       this.AscensionClasses = (data as Array<any>).map(cls => {
         return new AscensionClass(cls);
       });
-      console.log(this.GrantsEntropy);
     });
   }
 
@@ -315,6 +356,19 @@ export class BuilderService {
     let result = [];
 
     return result;
+  }
+
+  getAvailableClassesFromPoint(ascension) {
+    return this.AscensionClasses.filter(cls => {
+      return (
+        !cls.Completed &&
+        ascension.Force >= cls.Requires.Force &&
+        ascension.Entropy >= cls.Requires.Entropy &&
+        ascension.Life >= cls.Requires.Life &&
+        ascension.Form >= cls.Requires.Form &&
+        ascension.Inertia >= cls.Requires.Inertia
+      );
+    });
   }
 
   resetClass(item) {
@@ -410,6 +464,41 @@ export class AscensionNode {
     );
   }
 
+  public get MaxGrants() {
+    return {
+      Force:
+        (this.Stats["Force"] ? this.Stats["Force"] : 0) +
+        this.SubNodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Force"];
+          return acc;
+        }, 0),
+      Inertia:
+        (this.Stats["Inertia"] ? this.Stats["Inertia"] : 0) +
+        this.SubNodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Inertia"];
+          return acc;
+        }, 0),
+      Life:
+        (this.Stats["Life"] ? this.Stats["Life"] : 0) +
+        this.SubNodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Life"];
+          return acc;
+        }, 0),
+      Form:
+        (this.Stats["Form"] ? this.Stats["Form"] : 0) +
+        this.SubNodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Form"];
+          return acc;
+        }, 0),
+      Entropy:
+        (this.Stats["Entropy"] ? this.Stats["Entropy"] : 0) +
+        this.SubNodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Entropy"];
+          return acc;
+        }, 0)
+    };
+  }
+
   public reset() {
     this._selected = false;
     this.SubNodes.forEach(node => {
@@ -446,6 +535,41 @@ export class AscensionClass {
 
   public get HasSelections() {
     return this.SelectedNodes[0];
+  }
+
+  public get MaxGrants() {
+    return {
+      Force:
+        this.Grants.Force +
+        this.Nodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Force"];
+          return acc;
+        }, 0),
+      Life:
+        this.Grants.Life +
+        this.Nodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Life"];
+          return acc;
+        }, 0),
+      Form:
+        this.Grants.Form +
+        this.Nodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Form"];
+          return acc;
+        }, 0),
+      Entropy:
+        this.Grants.Entropy +
+        this.Nodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Entropy"];
+          return acc;
+        }, 0),
+      Inertia:
+        this.Grants.Inertia +
+        this.Nodes.reduce((acc, item) => {
+          acc += item.MaxGrants["Inertia"];
+          return acc;
+        }, 0)
+    };
   }
 
   Nodes: Array<AscensionNode>;
