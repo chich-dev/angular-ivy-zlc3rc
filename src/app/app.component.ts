@@ -21,4 +21,24 @@ export class AppComponent {
   checked(e, node, cls) {
     node.Selected = e.checked;
   }
+
+  statFilterChecked(e, stat) {
+    //statFilters[stat] = e.checked;
+    if(e.checked) {
+      this.builder.Filters.Statistics.push(stat);
+    }
+    else {
+      this.builder.Filters.Statistics = this.builder.Filters.Statistics.splice(this.builder.Filters.Statistics.indexOf(stat), 1);
+    }
+  }
+
+  actFilterChecked(e, stat) {
+    //statFilters[stat] = e.checked;
+    if(e.checked) {
+      this.builder.Filters.Activators.push(stat);
+    }
+    else {
+      this.builder.Filters.Activators = this.builder.Filters.Activators.splice(this.builder.Filters.Activators.indexOf(stat), 1);
+    }
+  }
 }

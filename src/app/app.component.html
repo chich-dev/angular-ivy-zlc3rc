@@ -2,7 +2,7 @@
 	<mat-toolbar color="primary">
 		Ascension
 	</mat-toolbar>
-	<mat-tab-group >
+	<mat-tab-group>
 		<mat-tab label="Builder">
 			<div cols="4" rows="1">
 				<div colspan="1" rowspan="1">
@@ -24,13 +24,13 @@
 								<mat-card-title>
 									Statistics
 								</mat-card-title>
-                <mat-card-content>
-								<div *ngFor="let item of builder.Character.Statistics | keyvalue">
-									<div *ngIf="item.value != 0" style="padding: 4px">
-										{{item.value}} {{item.key}}
+								<mat-card-content>
+									<div *ngFor="let item of builder.Character.Statistics | keyvalue">
+										<div *ngIf="item.value != 0" style="padding: 4px">
+											{{item.value}} {{item.key}}
+										</div>
 									</div>
-								</div>
-                </mat-card-content>
+								</mat-card-content>
 							</mat-card>
 						</div>
 					</div>
@@ -47,8 +47,7 @@
 									</mat-card-header>
 									<mat-card-content style="padding: 12px">
 										<div style="margin-bottom: 4px">
-											<div
-												style="padding: 2px;font-size: 1.1em;font-weight:600;">
+											<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
 												Completion Grants
 											</div>
 											<div *ngFor="let item of cls.Grants | keyvalue">
@@ -84,8 +83,7 @@
 																(change)="checked($event, subnode, cls)" [disabled]="">
 															</mat-checkbox>
 														</div>
-														<div
-															style="flex:1; text-align: right; margin-left: 8px;">
+														<div style="flex:1; text-align: right; margin-left: 8px;">
 															{{subnode.Raw}}
 														</div>
 													</div>
@@ -144,12 +142,101 @@
 
 		</mat-tab>
 		<mat-tab label="Discovery">
-			<div>
+			<div style="display: flex">
 				<div>
+					<mat-card style="margin: 12px">
+						<mat-card-title>
+							Filters
+						</mat-card-title>
+						<mat-card-content>
+							<div class="example-action-buttons">
+								<button mat-button (click)="accordion.openAll()">Expand All</button>
+								<button mat-button (click)="accordion.closeAll()">Collapse All</button>
+							</div>
+              <mat-form-field>
+										<mat-label>Text Search</mat-label>
+										<input matInput [(ngModel)]="builder.Filters.Raw">
+                  </mat-form-field>
 
+							<mat-accordion class="example-headers-align" multi>
+								<mat-expansion-panel>
+									<mat-expansion-panel-header>
+										<mat-panel-title>
+											Activators
+										</mat-panel-title>
+                    			
+									</mat-expansion-panel-header>					
+                  <div *ngFor="let stat of builder.AllActivators | keyvalue">
+                    <mat-checkbox [checked]="stat.value"
+																(change)="actFilterChecked($event, stat.key, builder.AllStatistics)">{{stat.key}}</mat-checkbox>
+                    </div>					
+								</mat-expansion-panel>
+                <mat-expansion-panel>
+									<mat-expansion-panel-header>
+										<mat-panel-title>
+											Statistics
+										</mat-panel-title>
+
+									</mat-expansion-panel-header>			
+                    <div *ngFor="let stat of builder.AllStatistics | keyvalue">
+                    <mat-checkbox [checked]="stat.value"
+																(change)="statFilterChecked($event, stat.key, builder.AllStatistics)">{{stat.key}}</mat-checkbox>
+                    </div>						
+								</mat-expansion-panel>
+							</mat-accordion>
+						</mat-card-content>
+					</mat-card>
 				</div>
-				<div>
-
+				<div style="flex: 1">
+					<mat-card style="margin: 12px">
+						<mat-card-title>
+							Results
+						</mat-card-title>
+						<mat-card-content>
+							<div style="display: flex; flex-wrap: wrap;">
+								<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
+									*ngFor="let cls of builder.QueryMatches">
+									<mat-card-header
+										[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+										{{cls.Name}}
+									</mat-card-header>
+									<mat-card-content style="padding: 12px">
+										<div style="margin-bottom: 4px">
+											<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+												Completion Grants
+											</div>
+											<div *ngFor="let item of cls.Grants | keyvalue">
+												<div *ngIf="item.value != 0" style="padding: 4px">
+													{{item.value}} {{item.key}}
+												</div>
+											</div>
+										</div>
+										<div *ngIf="cls.Nodes.length == 1">
+											<div *ngFor="let node of cls.Nodes">
+											</div>
+										</div>
+										<div *ngIf="cls.Nodes.length > 1">
+											<div *ngFor="let node of cls.Nodes; $index as index">
+												<div>
+													<div style="padding: 4px;font-size: 1.1em;font-weight:600;"
+														*ngIf="node.SubNodes.length != 0">
+														Node {{node.ID}}
+													</div>
+												</div>
+												<div *ngFor="let subnode of node.SubNodes">
+													<div style="display: flex; padding: 4px">
+														<div style="flex:1; text-align: right; margin-left: 8px;">
+															{{subnode.Raw}}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-card-content>
+								</mat-card>
+							</div>
+						</mat-card-content>
+					</mat-card>
 				</div>
 			</div>
 		</mat-tab>

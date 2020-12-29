@@ -6,11 +6,82 @@ import { Injectable } from "@angular/core";
 })
 export class BuilderService {
   public AscensionClasses;
+  public Filters = {
+    Statistics: [],
+    Activators: [],
+    Raw: ""
+  };
   public get Character() {
     return {
       CurrentAscension: this.CurrentAscension,
       Statistics: this.Statistics
     };
+  }
+
+  public get QueryMatches() {
+    return this.AscensionClasses
+      ? this.AscensionClasses.reduce((acc, item) => {
+          let result = true;
+
+          this.Filters.Statistics.map(stat => {
+            result = result && item.hasStatistic(stat);
+          });
+
+          if (result) {
+            acc.push(item);
+          }
+          return acc;
+        }, [])
+      : [];
+  }
+
+  public get AllStatistics() {
+    return this.AscensionClasses
+      ? this.AscensionClasses.reduce((acc, item) => {
+          item.Nodes.forEach(node => {
+            if (node.Stats) {
+              for (var name in node.Stats) {
+                if (!acc[name]) {
+                  acc[name] = false;
+                }
+              }
+              node.SubNodes.map(snode => {
+                for (var name in snode.Stats) {
+                  if (!acc[name]) {
+                    acc[name] = false;
+                  }
+                }
+              });
+            }
+          });
+          return acc;
+        }, {})
+      : {};
+  }
+
+  public get AllActivators() {
+    return this.AscensionClasses
+      ? this.AscensionClasses.reduce((acc, item) => {
+          item.Nodes.forEach(node => {
+            if (node.Activation) {
+              node.Activation.forEach(activator => {
+                if (!acc[activator]) {
+                  acc[activator] = false;
+                }
+              });
+
+              node.SubNodes.map(snode => {
+                snode.Activation.forEach(activator => {
+                if (!acc[activator]) {
+                  acc[activator] = false;
+                }
+              });
+              });
+            }
+          });
+          return acc;
+        }, {})
+      : {};
   }
 
   public get Statistics() {
@@ -105,6 +176,14 @@ export class BuilderService {
       });
     });
   }
+
+  queryRaw(value) {}
+
+  queryStats() {}
+
+  queryActivation(value) {}
+
+  queryModifiers() {}
 }
 
 export class AscensionNode {
@@ -146,6 +225,15 @@ export class AscensionNode {
         })
       : [];
   }
+
+  public hasStatistic(value) {
+    return (
+      this.Stats[value] ||
+      this.SubNodes.reduce((acc, item) => {
+        return acc || item.Stats[value];
+      }, false)
+    );
+  }
 }
 
 export class AscensionClass {
@@ -176,5 +264,11 @@ export class AscensionClass {
     this.Grants = data.Grants;
     this.Group = data.Group;
     this.Requires = data.Requires;
+  }
+
+  public hasStatistic(value) {
+    return this.Nodes.reduce((acc, item) => {
+      return acc || item.hasStatistic(value);
+    }, false);
   }
 }

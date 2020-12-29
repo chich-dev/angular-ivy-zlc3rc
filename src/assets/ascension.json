@@ -5539,7 +5539,7 @@
 							"If you have a free off hand, activate Benevolence when an ally activates Purity or Paucity."
 						],
 						"Stats": {
-							"all Resistances": "2"
+							"All Resistances": "2"
 						}
 					},
 					{
@@ -5724,7 +5724,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "2"
+					"All Resistances": "2"
 				},
 				"SubNodes": [
 					{
@@ -5855,7 +5855,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Resistances": "2"
+							"Summon Resistances": "2"
 						}
 					}
 				]
@@ -5939,7 +5939,7 @@
 						"Stats": {
 							"Accuracy": "10",
 							"Damage": "10",
-							"summon Resistances": "5"
+							"Summon Resistances": "5"
 						}
 					}
 				]
@@ -5983,7 +5983,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Dodge": "10",
+							"Summon Dodge": "10",
 							"Maximum Vitality": "13",
 							"Damage": "10"
 						}
@@ -6726,7 +6726,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Resistances": "1"
+							"Summon Resistances": "1"
 						}
 					}
 				]
@@ -6826,7 +6826,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Dodge": "8",
+							"Summon Dodge": "8",
 							"Vitality Regen": "10",
 							"Perseverance": "2"
 						}
@@ -6849,7 +6849,7 @@
 							"-5% damage from Abeyance (-1% per Form and Inertia), up to -45%."
 						],
 						"Stats": {
-							"all Resistances": "2"
+							"All Resistances": "2"
 						}
 					},
 					{
@@ -6896,7 +6896,7 @@
 							"When you activate Abeyance, if you control three or more totems, sacrifice your oldest totem to reduce the damage that you would suffer from Abeyance by 40%."
 						],
 						"Stats": {
-							"all Resistances": "2"
+							"All Resistances": "2"
 						}
 					},
 					{
@@ -9065,7 +9065,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "3"
+					"All Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -9638,7 +9638,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "3"
+					"All Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -10217,7 +10217,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Resistances": "8"
+							"Summon Resistances": "8"
 						}
 					}
 				]
@@ -10228,7 +10228,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "3"
+					"All Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -10343,7 +10343,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"summon Dodge": "15",
+							"Summon Dodge": "15",
 							"Damage": "25",
 							"Movement Speed": "1"
 						}
@@ -10452,7 +10452,7 @@
 						"Modifiers": [],
 						"Stats": {
 							"Damage": "10",
-							"summon Dodge": "15"
+							"Summon Dodge": "15"
 						}
 					}
 				]
@@ -11073,7 +11073,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "3"
+					"All Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -11644,7 +11644,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"all Resistances": "3"
+					"All Resistances": "3"
 				},
 				"SubNodes": [
 					{
