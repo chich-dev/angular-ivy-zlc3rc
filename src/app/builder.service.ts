@@ -56,10 +56,9 @@ export class BuilderService {
       return this.NonCompletedClasses.sort((a, b) => {
         let aScore = 0;
         let bScore = 0;
+        let aExclusiveGrantUsed = false;
+        let bExclusiveGrantUsed = false;
         for (var name in ascensionDelta) {
-          let aExclusiveGrantUsed = false;
-          let bExclusiveGrantUsed = false;
-
           if (ascensionDelta[name] < 0) {
             if (a.HasExclusiveGrant) {
               if (aExclusiveGrantUsed) {
@@ -103,14 +102,11 @@ export class BuilderService {
             }
           }
         }
-        if (
-          (a.Name == "The Hind" && b.Name == "The Arcanist") ||
-          (b.Name == "The Hind" && a.Name == "The Arcanist")
-        ) {
-          console.log(aScore);
-          console.log(bScore);
-          console.log(b.HasExclusiveGrant);
-        }
+
+        console.log(a.Name + " " + aScore);
+        console.log(b.Name + " " + bScore);
+        console.log(a.HasExclusiveGrant);
+        console.log(b.HasExclusiveGrant);
 
         return aScore == bScore ? 0 : aScore < bScore ? 1 : -1;
       });
@@ -549,11 +545,11 @@ export class AscensionNode {
     return this.SubNodes.reduce((acc, item) => {
       return (
         acc ||
-        item.Stats["Life"] ||
-        item.Stats["Form"] ||
-        item.Stats["Force"] ||
-        item.Stats["Entropy"] ||
-        item.Stats["Inertia"]
+        item.hasStatistic("Life") ||
+        item.hasStatistic("Form") ||
+        item.hasStatistic("Force") ||
+        item.hasStatistic("Entropy") ||
+        item.hasStatistic("Inertia")
       );
     }, false);
   }
@@ -579,9 +575,9 @@ export class AscensionNode {
 
   public hasStatistic(value) {
     return (
-      this.Stats[value] ||
+      (this.Stats[value] ? true : false) ||
       this.SubNodes.reduce((acc, item) => {
-        return acc || item.Stats[value];
+        return acc || (item.Stats[value] ? true : false);
       }, false)
     );
   }
