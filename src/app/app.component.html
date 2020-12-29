@@ -69,6 +69,14 @@
 													{{item.value}} {{item.key}}
 												</div>
 											</div>
+											<div style="padding: 2px;font-size: 1.1em;font-weight:600;">
+												Requires
+											</div>
+											<div *ngFor="let item of cls.Requires | keyvalue">
+												<div *ngIf="item.value != 0" style="padding: 4px">
+													{{item.value}} {{item.key}}
+												</div>
+											</div>
 										</div>
 										<div *ngIf="cls.Nodes.length == 1">
 											<div *ngFor="let node of cls.Nodes">

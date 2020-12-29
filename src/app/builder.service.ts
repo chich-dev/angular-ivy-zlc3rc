@@ -201,8 +201,15 @@ export class BuilderService {
         this.CurrentAscension.Life < item.Requires.Life ||
         this.CurrentAscension.Inertia < item.Requires.Inertia
       ) {
+        if (item.HasSelections) {
+          item.reset();
+          recurse = true;
+        }
       }
     });
+    if (recurse) {
+      this.checkClasses();
+    }
   }
 
   queryRaw(value) {}
