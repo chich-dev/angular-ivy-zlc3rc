@@ -361,10 +361,25 @@
 					</mat-card-content>
 				</mat-card>
 			</div>
-			<div style="display: flex; flex-wrap: wrap;" *ngIf="builder.Paths">
-				<div *ngFor="let path of builder.Paths">
+			<div *ngIf="builder.Paths">
+				<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px">
+					<mat-card-header
+						[ngStyle]="{ 'background-color': colors[builder.SelectedClassTarget.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
+						<div style="display: flex;flex:1">
+							<div style="flex:1">
+								{{builder.SelectedClassTarget.Name}}
+							</div>
+							<div style=" margin-right: 12px">
+								<mat-icon style="cursor:pointer" (click)="builder.SelectedClassTarget=null">
+									remove</mat-icon>
+							</div>
+						</div>
+					</mat-card-header>
+				</mat-card>
+				<div style="display: flex; flex-wrap: wrap;">
+					<!--<div *ngFor="let path of builder.Paths">-->
 					<mat-card style="flex: 1;margin: 24px;padding: 0px; max-width: 300px; min-width: 300px"
-						*ngFor="let cls of path">
+						*ngFor="let cls of builder.HighestValueClasses">
 						<mat-card-header
 							[ngStyle]="{ 'background-color': colors[cls.Group], 'color': 'rgba(255,255,255,.95)', 'padding':'12px', 'font-size':'1.25em', 'font-weight':'500' }">
 							<div style="display: flex;flex:1">
@@ -424,6 +439,7 @@
 							</div>
 						</mat-card-content>
 					</mat-card>
+					<!--	</div>-->
 				</div>
 			</div>
 		</mat-tab>

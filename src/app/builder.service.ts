@@ -11,6 +11,114 @@ export class BuilderService {
     Activators: [],
     Raw: ""
   };
+
+  public get HighestValueClasses() {
+    if (this.SelectedClassTarget) {
+      /*let ascensionDelta = {
+        Force:
+          this.CurrentAscension.Force - this.SelectedClassTarget.Requires.Force,
+        Life:
+          this.CurrentAscension.Life - this.SelectedClassTarget.Requires.Life,
+        Entropy:
+          this.CurrentAscension.Entropy -
+          this.SelectedClassTarget.Requires.Entropy,
+        Form:
+          this.CurrentAscension.Form - this.SelectedClassTarget.Requires.Form,
+        Inertia:
+          this.CurrentAscension.Inertia -
+          this.SelectedClassTarget.Requires.Inertia
+      };*/
+      let ascensionDelta = {
+        Force:
+          this.CurrentAscension.Force - this.SelectedClassTarget.Requires.Force,
+        Life:
+          this.CurrentAscension.Life - this.SelectedClassTarget.Requires.Life,
+        Entropy:
+          this.CurrentAscension.Entropy -
+          this.SelectedClassTarget.Requires.Entropy,
+        Form:
+          this.CurrentAscension.Form - this.SelectedClassTarget.Requires.Form,
+        Inertia:
+          this.CurrentAscension.Inertia -
+          this.SelectedClassTarget.Requires.Inertia
+      };
+      /*return this.AvailableClasses.sort((a, b) => {
+        let aScore = 0;
+        let bScore = 0;
+        for (var name in ascensionDelta) {
+          if (ascensionDelta[name] < 0) {
+            aScore += a.Grants[name];
+            aScore += b.Grants[name];
+          }
+        }
+        return aScore == bScore ? 0 : aScore < bScore ? 1 : -1;
+      });*/
+      return this.NonCompletedClasses.sort((a, b) => {
+        let aScore = 0;
+        let bScore = 0;
+        for (var name in ascensionDelta) {
+          let aExclusiveGrantUsed = false;
+          let bExclusiveGrantUsed = false;
+
+          if (ascensionDelta[name] < 0) {
+            if (a.HasExclusiveGrant) {
+              if (aExclusiveGrantUsed) {
+                aScore +=
+                  a.Grants[name] > Math.abs(ascensionDelta[name])
+                    ? Math.abs(ascensionDelta[name])
+                    : a.Grants[name];
+              } else {
+                if (a.Grants[name] + 1 > Math.abs(ascensionDelta[name])) {
+                  aScore += Math.abs(ascensionDelta[name]);
+                } else {
+                  aScore += a.Grants[name] + 1;
+                  aExclusiveGrantUsed = true;
+                }
+              }
+            } else {
+              aScore +=
+                a.Grants[name] > Math.abs(ascensionDelta[name])
+                  ? Math.abs(ascensionDelta[name])
+                  : a.Grants[name];
+            }
+            if (b.HasExclusiveGrant) {
+              if (bExclusiveGrantUsed) {
+                bScore +=
+                  b.Grants[name] > Math.abs(ascensionDelta[name])
+                    ? Math.abs(ascensionDelta[name])
+                    : b.Grants[name];
+              } else {
+                if (b.Grants[name] + 1 > Math.abs(ascensionDelta[name])) {
+                  bScore += Math.abs(ascensionDelta[name]);
+                } else {
+                  bScore += b.Grants[name] + 1;
+                  bExclusiveGrantUsed = true;
+                }
+              }
+            } else {
+              bScore +=
+                b.Grants[name] > Math.abs(ascensionDelta[name])
+                  ? Math.abs(ascensionDelta[name])
+                  : b.Grants[name];
+            }
+          }
+        }
+        if (
+          (a.Name == "The Hind" && b.Name == "The Arcanist") ||
+          (b.Name == "The Hind" && a.Name == "The Arcanist")
+        ) {
+          console.log(aScore);
+          console.log(bScore);
+          console.log(b.HasExclusiveGrant);
+        }
+
+        return aScore == bScore ? 0 : aScore < bScore ? 1 : -1;
+      });
+    } else {
+      return [];
+    }
+  }
+
   public get Character() {
     return {
       CurrentAscension: this.CurrentAscension,
@@ -302,6 +410,16 @@ export class BuilderService {
     }
   }
 
+  public get NonCompletedClasses() {
+    if (this.AscensionClasses) {
+      return this.AscensionClasses.filter(cls => {
+        return !cls.Completed;
+      });
+    } else {
+      return [];
+    }
+  }
+
   public get RootClasses() {
     if (this.AscensionClasses) {
       return this.AscensionClasses.slice(0, 5);
@@ -427,6 +545,19 @@ export class AscensionNode {
         })[0];
   }
 
+  public get HasExclusiveGrant() {
+    return this.SubNodes.reduce((acc, item) => {
+      return (
+        acc ||
+        item.Stats["Life"] ||
+        item.Stats["Form"] ||
+        item.Stats["Force"] ||
+        item.Stats["Entropy"] ||
+        item.Stats["Inertia"]
+      );
+    }, false);
+  }
+
   SubNodes: Array<AscensionNode>;
   ID;
   Raw;
@@ -535,6 +666,12 @@ export class AscensionClass {
 
   public get HasSelections() {
     return this.SelectedNodes[0];
+  }
+
+  public get HasExclusiveGrant() {
+    return this.Nodes.reduce((acc, item) => {
+      return acc || item.HasExclusiveGrant;
+    }, false);
   }
 
   public get MaxGrants() {
