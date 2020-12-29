@@ -32,6 +32,20 @@
 									</div>
 								</mat-card-content>
 							</mat-card>
+							<mat-card style="margin: 12px">
+								<mat-card-title>
+									Completed
+								</mat-card-title>
+								<mat-card-content>
+									<mat-chip-list #chipList>
+										<mat-chip *ngFor="let item of builder.CompletedClasses" [selectable]="true"
+											removable="true" (removed)="builder.resetClass(item)">
+											{{item.Name}}
+											<mat-icon matChipRemove>cancel</mat-icon>
+										</mat-chip>
+									</mat-chip-list>
+								</mat-card-content>
+							</mat-card>
 						</div>
 					</div>
 				</div>
@@ -153,37 +167,39 @@
 								<button mat-button (click)="accordion.openAll()">Expand All</button>
 								<button mat-button (click)="accordion.closeAll()">Collapse All</button>
 							</div>
-              <mat-form-field>
-										<mat-label>Text Search</mat-label>
-										<input matInput [(ngModel)]="builder.Filters.Raw">
+							<mat-form-field>
+								<mat-label>Text Search</mat-label>
+								<input matInput [(ngModel)]="builder.Filters.Raw">
                   </mat-form-field>
 
-							<mat-accordion class="example-headers-align" multi>
-								<mat-expansion-panel>
-									<mat-expansion-panel-header>
-										<mat-panel-title>
-											Activators
-										</mat-panel-title>
-                    			
-									</mat-expansion-panel-header>					
-                  <div *ngFor="let stat of builder.AllActivators | keyvalue">
-                    <mat-checkbox [checked]="stat.value"
-																(change)="actFilterChecked($event, stat.key, builder.AllStatistics)">{{stat.key}}</mat-checkbox>
-                    </div>					
-								</mat-expansion-panel>
-                <mat-expansion-panel>
-									<mat-expansion-panel-header>
-										<mat-panel-title>
-											Statistics
-										</mat-panel-title>
+								<mat-accordion class="example-headers-align" multi>
+									<mat-expansion-panel>
+										<mat-expansion-panel-header>
+											<mat-panel-title>
+												Activators
+											</mat-panel-title>
 
-									</mat-expansion-panel-header>			
-                    <div *ngFor="let stat of builder.AllStatistics | keyvalue">
-                    <mat-checkbox [checked]="stat.value"
-																(change)="statFilterChecked($event, stat.key, builder.AllStatistics)">{{stat.key}}</mat-checkbox>
-                    </div>						
-								</mat-expansion-panel>
-							</mat-accordion>
+										</mat-expansion-panel-header>
+										<div *ngFor="let stat of builder.AllActivators | keyvalue">
+											<mat-checkbox [checked]="stat.value"
+												(change)="actFilterChecked($event, stat.key, builder.AllStatistics)">
+												{{stat.key}}</mat-checkbox>
+										</div>
+									</mat-expansion-panel>
+									<mat-expansion-panel>
+										<mat-expansion-panel-header>
+											<mat-panel-title>
+												Statistics
+											</mat-panel-title>
+
+										</mat-expansion-panel-header>
+										<div *ngFor="let stat of builder.AllStatistics | keyvalue">
+											<mat-checkbox [checked]="stat.value"
+												(change)="statFilterChecked($event, stat.key, builder.AllStatistics)">
+												{{stat.key}}</mat-checkbox>
+										</div>
+									</mat-expansion-panel>
+								</mat-accordion>
 						</mat-card-content>
 					</mat-card>
 				</div>
