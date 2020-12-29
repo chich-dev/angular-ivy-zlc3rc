@@ -188,9 +188,22 @@ export class BuilderService {
 
   resetClass(item) {
     item.reset();
+    this.checkClasses();
   }
 
-  checkClasses() {}
+  checkClasses() {
+    let recurse = false;
+    this.AscensionClasses.forEach(item => {
+      if (
+        this.CurrentAscension.Force < item.Requires.Force ||
+        this.CurrentAscension.Form < item.Requires.Form ||
+        this.CurrentAscension.Entropy < item.Requires.Entropy ||
+        this.CurrentAscension.Life < item.Requires.Life ||
+        this.CurrentAscension.Inertia < item.Requires.Inertia
+      ) {
+      }
+    });
+  }
 
   queryRaw(value) {}
 
