@@ -336,7 +336,7 @@ export class BuilderService {
 
   public get CurrentAscension() {
     if (this.AscensionClasses) {
-      return {
+      let result = {
         Force:
           this.AscensionClasses.filter(cls => {
             return cls.Completed;
@@ -368,6 +368,16 @@ export class BuilderService {
             return (acc += item.Grants.Inertia);
           }, 0) + (this.Statistics["Inertia"] ? this.Statistics["Inertia"] : 0)
       };
+      if (
+        this.AscensionClasses.slice(0, 5).filter(item => {
+          return item.Completed;
+        }).length == 5
+      ) {
+        for (var name in result) {
+          result[name] += 1;
+        }
+      }
+      return result;
     } else {
       return {
         Force: 0,
