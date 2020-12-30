@@ -275,14 +275,24 @@
 															*ngIf="node.SubNodes.length != 0">
 															Node {{node.ID}}
 														</div>
-														<div style="flex:1; text-align: right; margin-left: 8px;">
+														<div *ngIf="node.Raw.indexOf(builder.Filters.Raw) == -1"
+															style="flex:1; text-align: right; margin-left: 8px;">
+															{{node.Raw}}
+														</div>
+														<div *ngIf="node.Raw.indexOf(builder.Filters.Raw) > -1"
+															style="flex:1; text-align: right; margin-left: 8px;background-color:rgb(100,100,100)">
 															{{node.Raw}}
 														</div>
 													</div>
 												</div>
 												<div *ngFor="let subnode of node.SubNodes">
 													<div style="display: flex; padding: 4px">
-														<div style="flex:1; text-align: right; margin-left: 8px;">
+														<div *ngIf="subnode.Raw.indexOf(builder.Filters.Raw) == -1"
+															style="flex:1; text-align: right; margin-left: 8px;">
+															{{subnode.Raw}}
+														</div>
+														<div *ngIf="subnode.Raw.indexOf(builder.Filters.Raw) > -1"
+															style="flex:1; text-align: right; margin-left: 8px;background-color:rgb(100,100,100)">
 															{{subnode.Raw}}
 														</div>
 													</div>
