@@ -3937,10 +3937,10 @@
 				"Stats": {},
 				"SubNodes": [
 					{
-						"Raw": "Source Infusion 1: if you have 3 stacks of Elementalist or more when you perform your next Elementalist reaction, emulate the effects of Dazing Bolt, Fireball, Impalement, or Winter Blast with air, fire, water, and earth reactions, respectively.",
+						"Raw": "Source Infusion 1: if you have 3 stacks of Elementalist or more when you perform your next Elementalist reaction, emulate the effects of Dazing Bolt, Fireball, Impalement, or Winter Blast with air, fire, earth, and water reactions, respectively.",
 						"Activation": [],
 						"Modifiers": [
-							"Source Infusion 1: if you have 3 stacks of Elementalist or more when you perform your next Elementalist reaction, emulate the effects of Dazing Bolt, Fireball, Impalement, or Winter Blast with air, fire, water, and earth reactions, respectively."
+							"Source Infusion 1: if you have 3 stacks of Elementalist or more when you perform your next Elementalist reaction, emulate the effects of Dazing Bolt, Fireball, Impalement, or Winter Blast with air, fire, earth, and water reactions, respectively."
 						],
 						"Stats": {}
 					},
@@ -5532,14 +5532,14 @@
 				"Stats": {},
 				"SubNodes": [
 					{
-						"Raw": "Learn the Mercy skill, which activates Benevolence on allies around you.\r\nIf you have a free off hand, activate Benevolence when an ally activates Purity or Paucity.\r\n+2% to all Resistances.",
+						"Raw": "Learn the Mercy skill, which activates Benevolence on allies around you.\r\nIf you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence removing +1 Battered and Harried.\r\n+2% to all Resistances.",
 						"Activation": [],
 						"Modifiers": [
 							"Learn the Mercy skill, which activates Benevolence on allies around you.",
-							"If you have a free off hand, activate Benevolence when an ally activates Purity or Paucity."
+							"If you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence removing +1 Battered and Harried."
 						],
 						"Stats": {
-							"All Resistances": "2"
+							"all Resistances": "2"
 						}
 					},
 					{
@@ -5724,7 +5724,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "2"
+					"all Resistances": "2"
 				},
 				"SubNodes": [
 					{
@@ -5855,7 +5855,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Resistances": "2"
+							"summon Resistances": "2"
 						}
 					}
 				]
@@ -5939,7 +5939,7 @@
 						"Stats": {
 							"Accuracy": "10",
 							"Damage": "10",
-							"Summon Resistances": "5"
+							"summon Resistances": "5"
 						}
 					}
 				]
@@ -5983,7 +5983,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Dodge": "10",
+							"summon Dodge": "10",
 							"Maximum Vitality": "13",
 							"Damage": "10"
 						}
@@ -6726,7 +6726,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Resistances": "1"
+							"summon Resistances": "1"
 						}
 					}
 				]
@@ -6826,7 +6826,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Dodge": "8",
+							"summon Dodge": "8",
 							"Vitality Regen": "10",
 							"Perseverance": "2"
 						}
@@ -6849,7 +6849,7 @@
 							"-5% damage from Abeyance (-1% per Form and Inertia), up to -45%."
 						],
 						"Stats": {
-							"All Resistances": "2"
+							"all Resistances": "2"
 						}
 					},
 					{
@@ -6896,7 +6896,7 @@
 							"When you activate Abeyance, if you control three or more totems, sacrifice your oldest totem to reduce the damage that you would suffer from Abeyance by 40%."
 						],
 						"Stats": {
-							"All Resistances": "2"
+							"all Resistances": "2"
 						}
 					},
 					{
@@ -7084,11 +7084,11 @@
 				},
 				"SubNodes": [
 					{
-						"Raw": "Learn the Mercy skill, which activates Benevolence on allies around you.\r\nIf you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence, removing +1 Battered and Harried.",
+						"Raw": "Learn the Mercy skill, which activates Benevolence on allies around you.\r\nIf you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence removing +1 Battered and Harried.",
 						"Activation": [],
 						"Modifiers": [
 							"Learn the Mercy skill, which activates Benevolence on allies around you.",
-							"If you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence, removing +1 Battered and Harried."
+							"If you have a free off hand, when an ally activates Paucity or Purity, activate Benevolence removing +1 Battered and Harried."
 						],
 						"Stats": {}
 					},
@@ -7351,10 +7351,10 @@
 						"Stats": {}
 					},
 					{
-						"Raw": "Your Ward grants Volatile Armor: 15% of Armor damage taken is dealt to others within 2m as physical damage.",
+						"Raw": "Your Ward grants Volatile Armor: 15% of Armor damage taken is dealt to others within 3m as physical damage.",
 						"Activation": [],
 						"Modifiers": [
-							"Your Ward grants Volatile Armor: 15% of Armor damage taken is dealt to others within 2m as physical damage."
+							"Your Ward grants Volatile Armor: 15% of Armor damage taken is dealt to others within 3m as physical damage."
 						],
 						"Stats": {}
 					}
@@ -9065,7 +9065,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "3"
+					"all Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -9638,7 +9638,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "3"
+					"all Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -10217,7 +10217,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Resistances": "8"
+							"summon Resistances": "8"
 						}
 					}
 				]
@@ -10228,7 +10228,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "3"
+					"all Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -10343,7 +10343,7 @@
 						"Activation": [],
 						"Modifiers": [],
 						"Stats": {
-							"Summon Dodge": "15",
+							"summon Dodge": "15",
 							"Damage": "25",
 							"Movement Speed": "1"
 						}
@@ -10452,7 +10452,7 @@
 						"Modifiers": [],
 						"Stats": {
 							"Damage": "10",
-							"Summon Dodge": "15"
+							"summon Dodge": "15"
 						}
 					}
 				]
@@ -11073,7 +11073,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "3"
+					"all Resistances": "3"
 				},
 				"SubNodes": [
 					{
@@ -11644,7 +11644,7 @@
 				"Activation": [],
 				"Modifiers": [],
 				"Stats": {
-					"All Resistances": "3"
+					"all Resistances": "3"
 				},
 				"SubNodes": [
 					{
